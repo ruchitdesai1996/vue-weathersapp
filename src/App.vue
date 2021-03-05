@@ -1,26 +1,44 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <router-view/>
+  </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios";
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  data() {
+    return {
+      APIkey:"ab277e8ff238b65faf642090c9b2d642",
+      City:"Dallas",
+    };
+  },
+  created() {
+    this.getCurrentWeather();
+  },
+  methods: {
+    getCurrentWeather() {
+      axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.City}&units=imperial&APPID=${this.APIkey}`)
+      .then((res) => {
+        console.log(res.data);
+      });
+    },
+  },
+};  
+  
+ 
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Courier New', Courier, monospace;
 }
+
 </style>
